@@ -3,18 +3,33 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from './dummy.users';
+import { TaskComponent } from './task/task.component';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, UserComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    UserComponent,
+    TaskComponent,
+    NgFor,
+    NgIf,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'tutor-angular18';
-  user = DUMMY_USERS;
+  users = DUMMY_USERS;
+  selectedUserId?: String;
+
+  get selectedUser() {
+    return this.users.find((user) => user.id === this.selectedUserId)!;
+  }
+
   onSelectUser(id: string) {
-    console.log('selected user ' + id);
+    this.selectedUserId = id;
   }
 }
